@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>💙 Nuestra Historia 💙</title>
+
+<style>
+body{
+    margin:0;
+    font-family: Arial;
+    background: linear-gradient(270deg,#4facfe,#00f2fe,#66a6ff);
+    background-size:600% 600%;
+    animation:fondo 12s infinite;
+    overflow:hidden;
+    color:white;
+    text-align:center;
+}
+
+@keyframes fondo{
+    50%{background-position:100% 50%;}
+}
+
+/* Pantallas */
+.pantalla{
+    display:none;
+    height:100vh;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    opacity:0;
+    transition:1s;
+}
+
+.activa{
+    display:flex;
+    opacity:1;
+}
+
+.card{
+    background:rgba(0,0,0,0.4);
+    padding:25px;
+    border-radius:20px;
+    width:320px;
+    backdrop-filter:blur(12px);
+    box-shadow:0 0 30px rgba(0,0,0,0.5);
+}
+
+/* Imágenes */
+img{
+    width:250px;
+    border-radius:15px;
+    margin:10px 0;
+}
+
+/* Botones */
+button{
+    padding:10px 20px;
+    border:none;
+    border-radius:20px;
+    cursor:pointer;
+    margin-top:10px;
+    transition:.3s;
+}
+
+button:hover{
+    transform:scale(1.1);
+}
+
+/* Snoopy */
+.snoopy{
+    width:100px;
+    animation:flotar 3s infinite;
+}
+
+@keyframes flotar{
+    50%{transform:translateY(-10px);}
+}
+
+/* Contador */
+#contador{
+    font-size:18px;
+    margin-top:10px;
+}
+
+/* Corazones */
+.corazon{
+    position:absolute;
+    animation:subir 5s linear infinite;
+}
+
+@keyframes subir{
+    100%{transform:translateY(-800px); opacity:0;}
+}
+
+/* FINAL */
+#final{
+    position:absolute;
+    font-size:60px;
+    font-weight:bold;
+    display:none;
+    animation:zoom 2s forwards;
+}
+
+@keyframes zoom{
+    from{transform:scale(0);}
+    to{transform:scale(1.6);}
+}
+
+/* Fuegos */
+.fuego{
+    position:absolute;
+    width:6px;
+    height:6px;
+    background:white;
+    border-radius:50%;
+    animation:explosion 1s forwards;
+}
+
+@keyframes explosion{
+    to{
+        transform:translate(var(--x),var(--y));
+        opacity:0;
+    }
+}
+
+/* NO */
+#no{
+    position:absolute;
+}
+</style>
+</head>
+
+<body>
+
+<div id="final">💙 TE AMO ANA SOFÍA 💙</div>
+
+<!-- Pantallas -->
+<div class="pantalla activa" id="p0">
+    <h1>💙 Tengo algo muy especial para ti 💙</h1>
+    <button onclick="next()">Abrir 🎁</button>
+</div>
+
+<div class="pantalla" id="p1">
+    <div class="card">
+        <img src="foto1.jpg">
+        <p>Todo comenzó un 22 de septiembre 💙</p>
+        <button onclick="next()">➡️</button>
+    </div>
+</div>
+
+<div class="pantalla" id="p2">
+    <div class="card">
+        <img src="foto2.jpg">
+        <p>Desde entonces todo es mejor contigo 🐶</p>
+        <button onclick="next()">➡️</button>
+    </div>
+</div>
+
+<div class="pantalla" id="p3">
+    <div class="card">
+        <img src="foto3.jpg">
+        <p>Me haces sentir cosas que nadie más 💙</p>
+        <button onclick="next()">➡️</button>
+    </div>
+</div>
+
+<div class="pantalla" id="p4">
+    <div class="card">
+        <img src="foto4.jpg">
+        <p>Y quiero seguir contigo en todo lo que venga 💙</p>
+        <button onclick="next()">➡️</button>
+    </div>
+</div>
+
+<div class="pantalla" id="p5">
+    <div class="card">
+
+        <img src="https://upload.wikimedia.org/wikipedia/en/5/53/Snoopy_Peanuts.png" class="snoopy">
+
+        <h2>Ever Aaron 💙 Ana Sofía</h2>
+
+        <div id="contador"></div>
+
+        <h3>¿Quieres seguir conmigo? 💙</h3>
+
+        <button onclick="si()">Sí 💙</button>
+        <button id="no" onmouseover="mover()">No 😢</button>
+
+    </div>
+</div>
+
+<!-- Música -->
+<iframe width="0" height="0"
+src="https://www.youtube.com/embed/8Qn_spdM5Zg?autoplay=1&loop=1&playlist=8Qn_spdM5Zg"
+allow="autoplay"></iframe>
+
+<script>
+
+let actual=0;
+
+function next(){
+    document.getElementById("p"+actual).classList.remove("activa");
+    actual++;
+    document.getElementById("p"+actual).classList.add("activa");
+}
+
+/* Sí */
+function si(){
+
+    if(navigator.vibrate) navigator.vibrate([300,100,300]);
+
+    document.getElementById("final").style.display="block";
+
+    // fuegos
+    for(let i=0;i<100;i++){
+        let f=document.createElement("div");
+        f.classList.add("fuego");
+        f.style.left=window.innerWidth/2+"px";
+        f.style.top=window.innerHeight/2+"px";
+        f.style.setProperty('--x',(Math.random()*500-250)+"px");
+        f.style.setProperty('--y',(Math.random()*500-250)+"px");
+        document.body.appendChild(f);
+        setTimeout(()=>f.remove(),1000);
+    }
+
+    alert("💙 Eres lo mejor que me ha pasado 💙");
+}
+
+/* NO escapa */
+function mover(){
+    let no=document.getElementById("no");
+    no.style.left=Math.random()*300+"px";
+    no.style.top=Math.random()*300+"px";
+}
+
+/* CONTADOR EN TIEMPO REAL */
+let inicio=new Date("2025-09-22");
+
+setInterval(()=>{
+    let ahora=new Date();
+    let diff=ahora-inicio;
+
+    let dias=Math.floor(diff/(1000*60*60*24));
+    let horas=Math.floor((diff/(1000*60*60))%24);
+    let min=Math.floor((diff/(1000*60))%60);
+
+    document.getElementById("contador").innerText=
+    dias+" días, "+horas+" horas y "+min+" min juntos 💙";
+},1000);
+
+/* corazones */
+setInterval(()=>{
+    let c=document.createElement("div");
+    c.classList.add("corazon");
+    c.innerHTML="💙";
+    c.style.left=Math.random()*window.innerWidth+"px";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),5000);
+},250);
+
+</script>
+
+</body>
+</html>
